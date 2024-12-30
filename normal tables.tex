@@ -1,0 +1,75 @@
+Sayfanın devamında (d) şıkkının süreç yeterliliği yorumundan sonra (e) şıkkı hakkındaki yorumlamalar yapılacaktır.\\
+
+Süreç boyunca elde edilen verilere göre 15,7 oz’dan daha az olma ihtimalinin hesaplanması için normal dağıldığını varsaydığımız bu süreci standart normale dönüştürüp, çan eğrisi altında kalan alana göre yüzde kaç ihtimal ile gerçekleşebileceğini inceleyeceğiz.
+
+\begin{itemize}[label*={}]
+	\item
+	$P\left(x < \text{LSL}\right)$
+	\item
+	$P\left(\frac{x-\mu}{\hat\sigma_x} < \frac{\mu - \text{LSL}}{\hat\sigma_x}\right)$
+	\item
+	$P\left(Z < \frac{15,7-16,2680}{0,2042}\right)$
+	\item
+	$P\left(Z < \frac{-0.5680}{0.2042}\right)$
+	\item
+	$P\left(Z < -2,7815\right) \cong 0,0027$ olarak bulunur.
+\end{itemize}
+
+\%0,27 olasılık ile 15.7 oz ve daha aşağısında ürününün (dry bleach) bu üretimden çıkabilme olasılığını hesapladık.\\
+
+\begin{center}
+	
+$X\ \sim \ N\left(16,2080\ \left(0,2042\right)^2\right)$ için grafik şu şekildedir.\\
+
+\pgfplotsset{compat=1.18}
+\pgfmathsetmacro{\mu}{16.2080}
+\pgfmathsetmacro{\sigma}{0.2042	}
+\pgfmathdeclarefunction{normal}{2}{%
+	\pgfmathparse{1/(#2 * sqrt(2 * pi)) * exp(-((x - #1)^2) / (2 * #2^2))}%
+}
+
+\begin{tikzpicture}[scale=0.80]
+	\begin{axis}[
+		domain=15:17.5,
+		samples=100,
+		xlabel={$X$}, 
+		ylabel={$f(x)$},
+		axis lines=middle, 
+		enlargelimits, 
+		height=8cm, width=8cm,
+		]
+		
+		\addplot[blue, thick]{normal(\mu, \sigma)};
+		
+	\end{axis}
+\end{tikzpicture}
+\\[0.25in]
+
+$X\ \sim \ Z(0,1)$ için ise grafik bu şekildedir.
+
+\pgfplotsset{compat=1.18}
+\pgfmathdeclarefunction{normalpdf}{1}{%
+	\pgfmathparse{1/(sqrt(2*pi))*exp(-(#1^2)/2)}%
+}
+
+\begin{tikzpicture}[scale=0.80]
+	\begin{axis}[
+		domain=-4:4,
+		samples=100,
+		axis lines=middle,
+		enlargelimits,
+		height=8cm, 
+		width=12cm,
+		grid style={dashed,gray!30},
+		ylabel style={at={(axis description cs:-0.1,.5)},rotate=90,anchor=south},
+		xtick={-3,-2,-1,0,1,2,3},
+		ytick={0,0.1,0.2,0.3,0.4},
+		ymax=0.45
+		]
+		\addplot[blue, thick] {normalpdf(x)};
+		
+	\end{axis}
+\end{tikzpicture}
+\end{center}
+
+
